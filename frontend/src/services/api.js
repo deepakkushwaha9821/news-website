@@ -1,10 +1,10 @@
-const API_URL = "http://localhost:5000/api/news";
+const API_URL = `${import.meta.env.VITE_API_URL}/api/news`;
 
 export const fetchNews = async (search, category) => {
   let url = API_URL + "?";
 
-  if (search) url += `search=${search}&`;
-  if (category) url += `category=${category}`;
+  if (search) url += `search=${encodeURIComponent(search)}&`;
+  if (category) url += `category=${encodeURIComponent(category)}`;
 
   const res = await fetch(url);
   return res.json();
