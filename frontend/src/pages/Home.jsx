@@ -9,8 +9,14 @@ const Home = () => {
   const [news, setNews] = useState([]);
   const [selectedNews, setSelectedNews] = useState(null);
 
-  useEffect(() => {
+  // 🔄 Load news (used for refresh after edit/delete)
+  const loadNews = () => {
     fetchNews("", category).then(setNews);
+  };
+
+  // Load news when category changes
+  useEffect(() => {
+    loadNews();
     setSelectedNews(null); // reset when tab changes
   }, [category]);
 
@@ -19,12 +25,20 @@ const Home = () => {
       <SearchBar onResultClick={setSelectedNews} />
       <Tabs setCategory={setCategory} />
 
+      {/* 🔍 If clicked from floating search */}
       {selectedNews ? (
-        <NewsCard news={selectedNews} />
+        <NewsCard news={selectedNews} refresh={loadNews} />
       ) : (
-        news.map((n) => <NewsCard key={n._id} news={n} />)
+        news.map((n) => (
+          <NewsCard
+            key={n._id}
+            news={n}
+            refresh={loadNews}
+          />
+        ))
       )}
     </div>
   );
 };
+
 export default Home;
