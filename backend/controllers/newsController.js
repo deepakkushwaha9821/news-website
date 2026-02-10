@@ -27,4 +27,20 @@ exports.getNews = async (req, res) => {
 
   const news = await News.find(filter).sort({ createdAt: -1 });
   res.json(news);
+
+};
+// UPDATE news
+exports.updateNews = async (req, res) => {
+  const updated = await News.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true }
+  );
+  res.json(updated);
+};
+
+// DELETE news
+exports.deleteNews = async (req, res) => {
+  await News.findByIdAndDelete(req.params.id);
+  res.json({ message: "News deleted" });
 };
