@@ -29,18 +29,26 @@ exports.getNews = async (req, res) => {
   res.json(news);
 
 };
-// UPDATE news
 exports.updateNews = async (req, res) => {
-  const updated = await News.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true }
-  );
-  res.json(updated);
+  try {
+    const updated = await News.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json("Update failed");
+  }
 };
 
-// DELETE news
+// DELETE NEWS
 exports.deleteNews = async (req, res) => {
-  await News.findByIdAndDelete(req.params.id);
-  res.json({ message: "News deleted" });
+  try {
+    await News.findByIdAndDelete(req.params.id);
+    res.json("News deleted");
+  } catch (err) {
+    res.status(500).json("Delete failed");
+  }
 };
+
