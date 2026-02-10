@@ -1,5 +1,6 @@
 const API_URL = `${import.meta.env.VITE_API_URL}/api/news`;
 
+// GET (search + category)
 export const fetchNews = async (search, category) => {
   let url = API_URL + "?";
 
@@ -10,6 +11,7 @@ export const fetchNews = async (search, category) => {
   return res.json();
 };
 
+// CREATE
 export const addNews = async (news) => {
   await fetch(API_URL, {
     method: "POST",
@@ -18,9 +20,9 @@ export const addNews = async (news) => {
   });
 };
 
-/ UPDATE
+// UPDATE
 export const updateNews = async (id, data) => {
-  await fetch(`${API}/${id}`, {
+  await fetch(`${API_URL}/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
@@ -29,7 +31,7 @@ export const updateNews = async (id, data) => {
 
 // DELETE
 export const deleteNews = async (id) => {
-  await fetch(`${API}/${id}`, {
+  await fetch(`${API_URL}/${id}`, {
     method: "DELETE"
   });
 };
