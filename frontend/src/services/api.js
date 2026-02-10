@@ -17,3 +17,19 @@ export const addNews = async (news) => {
     body: JSON.stringify(news)
   });
 };
+
+/ UPDATE
+export const updateNews = async (id, data) => {
+  await fetch(`${API}/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+};
+
+// DELETE
+export const deleteNews = async (id) => {
+  await fetch(`${API}/${id}`, {
+    method: "DELETE"
+  });
+};
